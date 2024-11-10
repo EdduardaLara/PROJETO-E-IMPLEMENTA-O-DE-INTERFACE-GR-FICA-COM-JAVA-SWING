@@ -1,0 +1,36 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class ExemploSwing {
+    public static void main(String[] args) {
+        // Criação da janela principal
+        JFrame frame = new JFrame("Exemplo de JComponent com JButton e JTextField");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 200);
+        frame.setLayout(new FlowLayout());
+
+        // Criação do JTextField e JButton
+        JTextField textField = new JTextField(20);
+        JButton button = new JButton("Clique Aqui");
+
+        // Configuração dos componentes usando métodos herdados de JComponent
+        textField.setToolTipText("Digite algo aqui"); // Exibe uma dica ao passar o mouse
+        button.setEnabled(false); // Desabilita o botão inicialmente
+
+        // Adiciona um ouvinte para habilitar o botão quando o campo de texto não estiver vazio
+        textField.addCaretListener(e -> {
+            String text = textField.getText();
+            button.setEnabled(!text.isEmpty()); // Habilita o botão se houver texto
+        });
+
+        // Configuração adicional de estilo
+        button.setBackground(Color.CYAN); // Define a cor de fundo do botão
+
+        // Adiciona componentes à janela
+        frame.add(textField);
+        frame.add(button);
+
+        // Torna a janela visível
+        frame.setVisible(true);
+    }
+}
