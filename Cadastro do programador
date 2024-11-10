@@ -1,0 +1,90 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class CadastroProgramador {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Cadastro do Programador");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 600);
+        frame.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+
+        // Campos de texto
+        frame.add(new JLabel("Nome:"));
+        JTextField nomeField = new JTextField(20);
+        frame.add(nomeField);
+
+        frame.add(new JLabel("CPF:"));
+        JTextField cpfField = new JTextField(20);
+        frame.add(cpfField);
+
+        // Data de aniversário com JSpinner
+        frame.add(new JLabel("Data aniversário"));
+        frame.add(new JLabel("Dia:"));
+        JSpinner diaSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 31, 1));
+        frame.add(diaSpinner);
+
+        frame.add(new JLabel("Mês:"));
+        JSpinner mesSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 12, 1));
+        frame.add(mesSpinner);
+
+        frame.add(new JLabel("Ano:"));
+        JSpinner anoSpinner = new JSpinner(new SpinnerNumberModel(2000, 1900, 2100, 1));
+        frame.add(anoSpinner);
+
+        // Apresentação pessoal com JTextArea
+        frame.add(new JLabel("Apresentação pessoal:"));
+        JTextArea apresentacaoArea = new JTextArea(5, 20);
+        frame.add(new JScrollPane(apresentacaoArea));
+
+        // Sexo com JRadioButton
+        frame.add(new JLabel("Sexo:"));
+        JRadioButton masculinoButton = new JRadioButton("masculino");
+        JRadioButton femininoButton = new JRadioButton("feminino");
+        ButtonGroup sexoGroup = new ButtonGroup();
+        sexoGroup.add(masculinoButton);
+        sexoGroup.add(femininoButton);
+        frame.add(masculinoButton);
+        frame.add(femininoButton);
+
+        // Linguagens com JCheckBox
+        frame.add(new JLabel("Linguagens:"));
+        JCheckBox javaCheckBox = new JCheckBox("Java");
+        JCheckBox pythonCheckBox = new JCheckBox("Python");
+        JCheckBox cppCheckBox = new JCheckBox("C++");
+        JCheckBox outrasCheckBox = new JCheckBox("Outras");
+        frame.add(javaCheckBox);
+        frame.add(pythonCheckBox);
+        frame.add(cppCheckBox);
+        frame.add(outrasCheckBox);
+
+        // Nível de conhecimento com JSlider
+        frame.add(new JLabel("Nível de conhecimento em teste de software:"));
+        JSlider nivelSlider = new JSlider(0, 3, 0);
+        nivelSlider.setMajorTickSpacing(1);
+        nivelSlider.setPaintTicks(true);
+        nivelSlider.setPaintLabels(true);
+        frame.add(nivelSlider);
+
+        // Tabela de vagas com JTable
+        frame.add(new JLabel("Vagas disponíveis:"));
+        String[] colunas = {"Back-end", "Front-end"};
+        String[][] dados = {
+                {"Java Spring", "React"},
+                {"Python Rest API", "Vue.js"}
+        };
+        JTable vagasTable = new JTable(dados, colunas);
+        frame.add(new JScrollPane(vagasTable));
+
+        // Tipo com JComboBox
+        frame.add(new JLabel("Tipo:"));
+        JComboBox<String> tipoComboBox = new JComboBox<>(new String[]{"Back-end", "Front-end"});
+        frame.add(tipoComboBox);
+
+        // Botão de envio
+        JButton enviarButton = new JButton("Enviar Formulário");
+        frame.add(enviarButton);
+
+        frame.setVisible(true);
+    }
+}
