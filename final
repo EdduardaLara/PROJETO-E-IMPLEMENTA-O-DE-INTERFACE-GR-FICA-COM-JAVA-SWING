@@ -1,0 +1,64 @@
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Título do Dashboard
+st.title("Dashboard Interativo de Análise de Dados")
+
+# Função para carregar o dataset
+@st.cache
+def load_data():
+    # Substitua pelo caminho do seu dataset ou URL
+    url = "https://path_to_your_kaggle_dataset.csv"
+    df = pd.read_csv(url)
+    return df
+
+# Carregar os dados
+df = load_data()
+
+# Exibir os dados em tabela
+st.subheader("Visualização dos Dados")
+st.write(df.head())  # Mostra as 5 primeiras linhas do dataset
+
+# Filtro de período usando selectbox
+if 'Ano' in df.columns:  # Certifique-se de que a coluna 'Ano' exista
+    st.subheader("Filtrar por Período")
+    periodo = st.selectbox("Selecione o Ano:", sorted(df['Ano'].unique()))
+    df_filtrado = df[df['Ano'] == periodo]
+    st.write(f"Dados filtrados para o Ano {periodo}:")
+    st.write(df_filtrado)
+else:
+    st.warning("A coluna 'Ano' não está presente no dataset.")
+    df_filtrado = df
+
+# Gráfico de Linha
+if 'Ano' in df.columns and 'Vendas' in df.columns:
+    st.subheader("Gráfico de Linha: Ano vs Vendas")
+    fig, ax = plt.subplots()
+    sns.lineplot(x='Ano', y='Vendas', data=df_filtrado, ax=ax)
+    st.pyplot(fig)
+
+# Gráfico de Barras
+if 'Categoria' in df.columns and 'Vendas' in df.columns:
+    st.subheader("Gráfico de Barras: Categoria vs Vendas")
+    fig, ax = plt.subplots()
+    sns.barplot(x='Categoria', y='Vendas', data=df_filtrado, ax=ax)
+    st.pyplot(fig)
+
+# Gráfico de Dispersão
+if 'Vendas' in df.columns and 'Lucro' in df.columns:
+    st.subheader("Gráfico de Dispersão: Vendas vs Lucro")
+    fig, ax = plt.subplots()
+    sns.scatterplot(x='Vendas', y='Lucro', data=df_filtrado, ax=ax)
+    st.pyplot(fig)
+
+# Gráfico de Pizza
+if 'Categoria' in df.columns:
+    st.subheader("Gráfico de Pizza: Distribuição por Categoria")
+    fig, ax = plt.subplots()
+    df_categoria = df_filtrado['Categoria'].value_counts()
+    ax.pie(df_categoria, labels=df_categoria.index, autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')  # Para garantir que o gráfico seja circular
+    st.pyplot(fig)
+
